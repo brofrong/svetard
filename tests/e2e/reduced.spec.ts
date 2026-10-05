@@ -34,3 +34,9 @@ test("при reduced motion «Путь» — обычная сетка без з
   );
   await expect(page.locator(".pin-spacer")).toHaveCount(0);
 });
+
+test("при reduced motion вместо WebGL — фото", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator("#top canvas")).toHaveCount(0);
+  await expect(page.locator("#top img")).toHaveCount(1);
+});

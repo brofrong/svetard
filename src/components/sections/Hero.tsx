@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { Magnetic } from "@/components/motion/Magnetic";
+import { SilkHero } from "@/components/three/SilkHero";
 import { AccentText } from "@/components/ui/AccentText";
 import { ButtonLink, MessengerLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -58,17 +58,7 @@ export function Hero() {
       id="top"
       className="relative isolate flex min-h-svh items-end overflow-hidden pt-32 pb-20 lg:items-center lg:pb-0"
     >
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <Image
-          src={hero.image.src}
-          alt=""
-          fill
-          preload
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-ivory via-ivory/20 to-transparent" />
-      </div>
+      <SilkHero image={hero.image} />
       <Container>
         <div className="max-w-4xl">
           <p data-hero-fade className="eyebrow text-mocha">
