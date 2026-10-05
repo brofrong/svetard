@@ -96,3 +96,31 @@ test("якорь из меню ведёт к началу секции под з
       .evaluate((el) => Math.round(el.getBoundingClientRect().top)),
   ).toBeGreaterThanOrEqual(-5);
 });
+
+test("якорь вверх по странице оставляет место под видимой шапкой", async ({
+  page,
+}) => {
+  await gotoHome(page);
+  await page.locator("#faq").scrollIntoViewIfNeeded();
+  await page.mouse.move(640, 400);
+  await page.mouse.wheel(0, -300);
+  const header = page.getByRole("banner");
+  await expect
+    .poll(() => header.evaluate((el) => el.getBoundingClientRect().top))
+    .toBe(0);
+  await header.getByRole("link", { name: "Обо мне" }).click();
+  await expect
+    .poll(
+      () =>
+        page
+          .locator("#about")
+          .evaluate((el) => Math.round(el.getBoundingClientRect().top)),
+      { timeout: 6000 },
+    )
+    .toBeGreaterThanOrEqual(70);
+  expect(
+    await page
+      .locator("#about")
+      .evaluate((el) => Math.round(el.getBoundingClientRect().top)),
+  ).toBeLessThanOrEqual(90);
+});

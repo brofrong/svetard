@@ -24,6 +24,8 @@
   html {
     background-color: var(--color-ivory);
     color: var(--color-espresso);
+    /* высота фиксированной шапки (h-20): якоря — и нативные, и через Lenis — не уходят под неё */
+    scroll-padding-top: 5rem;
   }
 
   h1,

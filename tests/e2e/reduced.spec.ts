@@ -40,3 +40,14 @@ test("при reduced motion вместо WebGL — фото", async ({ page }) =
   await expect(page.locator("#top canvas")).toHaveCount(0);
   await expect(page.locator("#top img")).toHaveCount(1);
 });
+
+test("при reduced motion якорь оставляет место под шапкой", async ({
+  page,
+}) => {
+  await page.goto("/#pricing", { waitUntil: "networkidle" });
+  const top = await page
+    .locator("#pricing")
+    .evaluate((el) => Math.round(el.getBoundingClientRect().top));
+  expect(top).toBeGreaterThanOrEqual(70);
+  expect(top).toBeLessThanOrEqual(90);
+});
