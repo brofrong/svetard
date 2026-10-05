@@ -22,8 +22,32 @@ const manrope = Manrope({
 const introBoot = `try{var d=document.documentElement;if(sessionStorage.getItem("${INTRO_STORAGE_KEY}")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.intro="skip"}}catch(e){}`;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: site.seo.title,
   description: site.seo.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: "/",
+    siteName: site.brand.name,
+    title: site.seo.title,
+    description: site.seo.description,
+    images: [
+      {
+        url: site.seo.ogImage.src,
+        width: 1200,
+        height: 630,
+        alt: site.seo.ogImage.alt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.seo.title,
+    description: site.seo.description,
+    images: [site.seo.ogImage.src],
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#f7f3ec" };
