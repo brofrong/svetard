@@ -19,3 +19,13 @@ test("на тач-устройстве нет кастомного курсор�
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator("[data-cursor-ring]")).toBeHidden();
 });
+
+test("плавающая кнопка Telegram появляется после первого экрана", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const button = page.locator("[data-floating-telegram]");
+  await expect(button).toBeHidden();
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  await expect(button).toBeVisible();
+});
