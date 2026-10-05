@@ -59,7 +59,9 @@ test("тарифы: один выделенный, ссылки с назван�
   await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect(page.locator("#pricing [data-featured]")).toHaveCount(1);
   for (const plan of site.pricing.plans) {
-    const card = page.locator("#pricing article", { hasText: plan.title });
+    const card = page.locator("#pricing article", {
+      has: page.getByRole("heading", { name: plan.title, exact: true }),
+    });
     await expect(
       card.getByRole("link", { name: site.pricing.cta }),
     ).toHaveAttribute(
