@@ -1,23 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
 import { INTRO_STORAGE_KEY } from "@/lib/intro";
+// Шрифты лежат в проекте (Fontsource): сборка не зависит от ответа Google Fonts,
+// который на CI отдаёт ссылки с query-строкой и ломает Turbopack.
+import "@fontsource/cormorant-garamond/300.css";
+import "@fontsource/cormorant-garamond/300-italic.css";
+import "@fontsource/cormorant-garamond/400.css";
+import "@fontsource/cormorant-garamond/400-italic.css";
+import "@fontsource/cormorant-garamond/500.css";
+import "@fontsource/cormorant-garamond/500-italic.css";
+import "@fontsource-variable/manrope/index.css";
 import "./globals.css";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin", "cyrillic"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-manrope",
-  display: "swap",
-});
 
 const introBoot = `try{var d=document.documentElement;if(sessionStorage.getItem("${INTRO_STORAGE_KEY}")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.intro="skip"}}catch(e){}`;
 
@@ -54,11 +48,7 @@ export const viewport: Viewport = { themeColor: "#f7f3ec" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="ru"
-      className={`${cormorant.variable} ${manrope.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="ru" suppressHydrationWarning>
       <head>
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: статический загрузочный скрипт без пользовательских данных */}
         <script dangerouslySetInnerHTML={{ __html: introBoot }} />
