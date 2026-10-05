@@ -1,4 +1,4 @@
-import { AccentText } from "@/components/ui/AccentText";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { cx } from "@/lib/cx";
 
 export type SectionHeadingProps = {
@@ -35,15 +35,16 @@ export function SectionHeading({
           align === "center" && "mx-auto",
         )}
       />
-      <Tag
+      <SplitHeading
+        as={Tag}
+        text={title}
+        tone={tone}
         className={cx(
           "mt-6",
           headingClass,
           dark ? "text-ivory" : "text-espresso",
         )}
-      >
-        <AccentText text={title} tone={tone} />
-      </Tag>
+      />
     </div>
   );
 }

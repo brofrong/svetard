@@ -1,13 +1,59 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
 import { AccentText } from "@/components/ui/AccentText";
 import { ButtonLink, MessengerLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site } from "@/content/site";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { onIntroDone } from "@/lib/intro";
+import { MOTION_OK } from "@/lib/motion";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
   const { hero, brand } = site;
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const root = ref.current;
+        const title = root?.querySelector("h1");
+        if (!root || !title) return;
+        const split = SplitText.create(title, { type: "lines", mask: "lines" });
+        const fades = root.querySelectorAll("[data-hero-fade]");
+        gsap.set(split.lines, { yPercent: 110 });
+        gsap.set(fades, { autoAlpha: 0, y: 24 });
+        return onIntroDone(() => {
+          gsap
+            .timeline()
+            .to(split.lines, {
+              yPercent: 0,
+              duration: 1.3,
+              ease: "expo.out",
+              stagger: 0.12,
+            })
+            .to(
+              fades,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.1,
+              },
+              "-=0.9",
+            );
+        });
+      });
+    },
+    { scope: ref },
+  );
+
   return (
     <section
+      ref={ref}
       id="top"
       className="relative isolate flex min-h-svh items-end overflow-hidden pt-32 pb-20 lg:items-center lg:pb-0"
     >
