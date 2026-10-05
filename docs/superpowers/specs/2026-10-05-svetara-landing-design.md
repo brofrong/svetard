@@ -26,15 +26,16 @@
 
 | Задача | Технология |
 |---|---|
-| Фреймворк | Next.js 15 (App Router), React 19, TypeScript (strict) |
+| Фреймворк | Next.js 16 (App Router, Turbopack, React Compiler), React 19.2, TypeScript 5 (strict) |
 | Стили | Tailwind CSS v4, дизайн-токены через `@theme` |
 | Анимации скролла | GSAP + ScrollTrigger, SplitText, DrawSVGPlugin |
 | Плавный скролл | Lenis, синхронизирован с ScrollTrigger |
 | Микро-анимации | Motion (`motion/react`) |
 | WebGL | React Three Fiber + собственный шейдер «шёлк» |
 | Линт и формат | Biome (ESLint/Prettier не используются) |
-| Тесты | Playwright (смоук) |
-| Менеджер пакетов | pnpm |
+| Тесты | Vitest (юнит-тесты чистых функций и инвариантов контента), Playwright (e2e: desktop / mobile / reduced-motion) |
+| Менеджер пакетов | pnpm 12 |
+| Иконки | lucide-react (тонкие линии, `strokeWidth` 1–1.25) |
 | Деплой | Docker-образ (Next.js `output: "standalone"`) → GitHub Container Registry через GitHub Actions |
 
 ## 3. Архитектура
@@ -112,9 +113,10 @@ biome.json
 | `sage` | `#7F8566` | метки «питание», мелкие акценты |
 | `dusk` | `#8FA3B5` | редкие акценты, градиент заката |
 | `espresso` | `#2A2420` | основной текст, тёмные секции |
+| `mocha` | `#5E5248` | второстепенный текст на светлом фоне (контраст 6.8:1) |
 | `gold-1/2/3` | `#B8893F` / `#E8C98A` / `#A67C3A` | градиент знака, рамок, линий, курсора |
 
-Контраст текста `espresso` на `ivory`/`sand` и `gold-2` на `espresso` — не ниже WCAG AA для основного текста. `taupe` используется только для крупного или второстепенного текста, где AA соблюдается.
+Контраст текста `espresso` на `ivory`/`sand` и `gold-2` на `espresso` — не ниже WCAG AA для основного текста. `taupe` — только линии и декор (контраст на `ivory` 3.7:1, для текста не годится). Золото как цвет текста на светлом фоне — только `gold-3` и только для крупного текста (≥ 24px, 3.4:1); на `espresso` — `gold-2`.
 
 ### 4.2 Типографика
 
@@ -138,16 +140,16 @@ biome.json
 
 | # | Секция | Якорь | Содержимое | Анимация |
 |---|---|---|---|---|
-| — | **Header** | — | Логотип, якоря, кнопка «Записаться» → Telegram | Прячется при скролле вниз, появляется при скролле вверх на полупрозрачном фоне с blur |
+| — | **Header** | — | Логотип, якоря (на мобильных скрыты, бургер-меню не делаем), кнопка «Записаться» → Telegram | Прячется при скролле вниз, появляется при скролле вверх на полупрозрачном фоне с blur |
 | 0 | **Preloader** | — | Знак «S», SVETARA | DrawSVG рисует «S» золотой линией → буквы выезжают по одной → шторка поднимается. Около 2 с. В рамках сессии повторно не показывается (`sessionStorage`) |
 | 1 | **Hero** | `#top` | Слоган, оффер, подзаголовок, кнопки «Выбрать программу» (→ `#pricing`) и «Написать в Telegram» | Фон — WebGL-шёлк, реагирует на курсор. SplitText построчно. Кнопки притягиваются к курсору |
 | 2 | **Marquee** | — | LIVE · FEEL · CHOOSE · BODY · AWARENESS · FREEDOM · TRANSFORMATION | Бесконечная прокрутка, скорость зависит от скорости скролла |
 | 3 | **About** | `#about` | Фото-арка, история, регалии, 3–4 цифры | Фото открывается через clip-path арки, параллакс, цифры досчитываются |
 | 4 | **Pains** | — | 4–6 запросов клиента | Карточки появляются лесенкой, при наведении — золотой отблеск |
 | 5 | **Path** | `#path` | 5 этапов работы (тёмная секция) | Закреплённая секция с горизонтальным скроллом, золотая линия прогресса |
-| 6 | **Services** | `#services` | 3 карточки-арки услуг | При наведении фото увеличивается и раскрывается описание. Кнопка → Telegram с текстом услуги |
+| 6 | **Services** | `#services` | 3 карточки-арки услуг | Описание видно всегда (на тач-экранах нет наведения). При наведении фото медленно увеличивается. Карточки появляются лесенкой. Кнопка → Telegram с текстом услуги |
 | 7 | **Program** | `#program` | Модули курса | Аккордеон с плавным раскрытием, номера проявляются при скролле |
-| 8 | **Results** | `#results` | Отзывы и «до/после» | Слайдер с перетаскиванием (Motion), сравнение «до/после» ползунком |
+| 8 | **Results** | `#results` | Отзывы и «до/после» | Слайдер отзывов на нативном горизонтальном скролле со snap и кнопками «назад/вперёд» (доступно с клавиатуры и свайпом). «До/после» — шторка на `<input type="range">` поверх фото |
 | 9 | **Pricing** | `#pricing` | 3 тарифа, средний выделен | Карточки поднимаются при появлении, у выделенной — анимированная золотая рамка. Основная кнопка → Telegram с названием тарифа, второстепенная ссылка → WhatsApp с тем же текстом |
 | 10 | **Ecosystem** | — | Круговая схема: в центре SVETARA, вокруг узлы | Линии прорисовываются, узлы вращаются по орбите и при наведении выводят подпись |
 | 11 | **FAQ** | `#faq` | 6–8 вопросов | Аккордеон |
@@ -183,24 +185,24 @@ biome.json
 
 - `prefers-reduced-motion: reduce` → Lenis, прелоадер, параллакс, курсор, притягивание и WebGL выключаются. Reveal-анимации заменяются мгновенным показом. Горизонтальный скролл в «Path» превращается в вертикальный список.
 - Тач-устройства: без кастомного курсора и притягивания. Горизонтальный скролл остаётся (закреплённая секция работает с Lenis), остальные эффекты облегчены.
-- Без JS: контент виден. Начальные скрытые состояния выставляются только из JS (класс `js` на `<html>`), а не CSS-дефолтом.
+- Без JS: контент виден. Начальные скрытые состояния выставляет только GSAP при монтировании (`gsap.from`), CSS ничего не прячет. Прелоадер: маленький inline-скрипт в `<head>` ставит `html[data-intro="skip"]` (повторный визит в сессии или reduced-motion), CSS прячет прелоадер при `skip` и при `@media (scripting: none)`; страховочная CSS-анимация убирает его через 4 с, если JS не запустился.
 - Семантика: один `<h1>`, иерархия заголовков, `alt` у изображений, аккордеоны на `<button aria-expanded>`, видимый focus-ring, все интерактивные элементы доступны с клавиатуры.
 - SEO: `metadata` (title, description, Open Graph), `lang="ru"`, `robots.txt`, `sitemap.xml`, favicon из знака «S».
 
 ## 9. Изображения-заглушки
 
-- Фото с Unsplash в стилистике брендбука (арки, шёлк, фитнес, еда, закат, группа людей). Скачиваются в `public/images/`, не подгружаются с внешнего сервера.
+- Фото с Pexels (бесплатная лицензия) в стилистике брендбука (арки, шёлк, фитнес, еда, закат, группа людей). Unsplash блокирует автоматическое скачивание без API-ключа, у Pexels CDN доступен напрямую. Манифест `scripts/images.json` + скрипт `scripts/fetch-images.mjs` скачивают их в `public/images/`; внешние домены сайт не использует.
 - Тёплая цветокоррекция задаётся CSS-фильтром на обёртке `ArchImage`, чтобы заглушки выглядели как одна серия. Фильтр отключается флагом, когда появятся настоящие фото.
 - Все изображения выводятся через `next/image` с корректными `sizes`.
-- В `public/images/CREDITS.md` перечисляются авторы фото Unsplash.
+- Скрипт генерирует `public/images/CREDITS.md` со ссылками на исходные фото Pexels.
 
 ## 10. Деплой
 
 ### 10.1 Dockerfile
 
 - `next.config.ts`: `output: "standalone"`.
-- Многоэтапная сборка на `node:22-alpine`:
-  1. `deps` — `corepack enable`, `pnpm install --frozen-lockfile`.
+- Многоэтапная сборка на `node:24-alpine` (Node 24 LTS):
+  1. `deps` — pnpm через corepack, `pnpm install --frozen-lockfile`.
   2. `builder` — `pnpm build`.
   3. `runner` — копируются `.next/standalone`, `.next/static`, `public`. Пользователь не root (`nextjs:nodejs`), `ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0`, `EXPOSE 3000`, `CMD ["node", "server.js"]`.
 - `HEALTHCHECK` через `wget -qO- http://127.0.0.1:3000/api/health`. Роут `app/api/health/route.ts` возвращает `200 {"status":"ok"}`.
@@ -209,7 +211,7 @@ biome.json
 ### 10.2 GitHub Actions (`.github/workflows/docker.yml`)
 
 - Триггеры: `push` в `main`, `push` тегов `v*`, `pull_request` в `main` (только проверки и сборка, без публикации), `workflow_dispatch`.
-- Job `check`: pnpm + Node 22, `pnpm install --frozen-lockfile`, `pnpm biome ci`, `pnpm build`.
+- Job `check`: pnpm + Node 24, `pnpm install --frozen-lockfile`, `pnpm exec biome ci`, `pnpm test` (Vitest), `pnpm build`.
 - Job `docker` (`needs: check`): `permissions: { contents: read, packages: write }`; `docker/setup-buildx-action`; `docker/login-action` в `ghcr.io` через `GITHUB_TOKEN` (пропускается для `pull_request`); `docker/metadata-action`; `docker/build-push-action` с `cache-from/to: type=gha` и `platforms: linux/amd64`. `push: true` только для событий, отличных от `pull_request`.
 - Образ: `ghcr.io/${{ github.repository_owner }}/svetara` (имя в нижнем регистре).
 - Теги: `latest` и `sha-<short>` для `main`; `{{version}}` и `{{major}}.{{minor}}` для тегов `v*`; `pr-<n>` для PR (собирается, не публикуется).
@@ -224,7 +226,7 @@ biome.json
   - при `reducedMotion: "reduce"` контент первого экрана и секций виден без скролла-анимаций (проверка видимости заголовков);
   - мобильный вьюпорт (390×844): нет горизонтального скролла у `body`.
 - Lighthouse (мобильный профиль, вручную или через `@lhci/cli` локально): Performance ≥ 85, Accessibility ≥ 95.
-- Docker: `docker build -t svetara .`, `docker run -p 3000:3000 svetara`, `curl` главной (200) и `/api/health` (200).
+- Docker: `docker build -t svetara .`, `docker run -p 3000:3000 svetara`, `curl` главной (200), `/api/health` (200) и оптимизатора картинок `/_next/image` (200, `image/webp`).
 
 ## 12. Открытые вопросы (не блокируют реализацию)
 
