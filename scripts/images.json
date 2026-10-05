@@ -1,0 +1,117 @@
+[
+  {
+    "file": "hero-silk.jpg",
+    "query": "beige silk",
+    "width": 2400,
+    "pexelsId": 8465944
+  },
+  {
+    "file": "og.jpg",
+    "query": "beige silk",
+    "width": 1200,
+    "height": 630,
+    "pexelsId": 8465944
+  },
+  {
+    "file": "about-portrait.jpg",
+    "query": "woman portrait natural light beige",
+    "width": 1400,
+    "pexelsId": 11446777
+  },
+  {
+    "file": "path-body.jpg",
+    "query": "woman back sports bra sunlight",
+    "width": 1000,
+    "pexelsId": 7319722
+  },
+  {
+    "file": "path-awareness.jpg",
+    "query": "woman profile eyes closed sunlight",
+    "width": 1000,
+    "pexelsId": 11582029
+  },
+  {
+    "file": "path-choice.jpg",
+    "query": "white arch stairs minimal architecture",
+    "width": 1000,
+    "pexelsId": 30403095
+  },
+  {
+    "file": "path-transformation.jpg",
+    "query": "beige silk",
+    "width": 1000,
+    "pexelsId": 7232398
+  },
+  {
+    "file": "path-community.jpg",
+    "query": "group meditation sitting together",
+    "width": 1000,
+    "pexelsId": 20822079
+  },
+  {
+    "file": "service-nutrition.jpg",
+    "query": "healthy food bowl beige aesthetic",
+    "width": 1200,
+    "pexelsId": 17498971
+  },
+  {
+    "file": "service-training.jpg",
+    "query": "woman dumbbell training warm light",
+    "width": 1200,
+    "pexelsId": 3757376
+  },
+  {
+    "file": "service-complex.jpg",
+    "query": "woman yoga stretching sunrise",
+    "width": 1200,
+    "pexelsId": 10057634
+  },
+  {
+    "file": "testimonial-1.jpg",
+    "query": "smiling woman portrait natural light",
+    "width": 400,
+    "height": 400,
+    "pexelsId": 11446754
+  },
+  {
+    "file": "testimonial-2.jpg",
+    "query": "woman 40s portrait natural light",
+    "width": 400,
+    "height": 400,
+    "pexelsId": 8499268
+  },
+  {
+    "file": "testimonial-3.jpg",
+    "query": "young woman runner portrait",
+    "width": 400,
+    "height": 400,
+    "pexelsId": 28406718
+  },
+  {
+    "file": "testimonial-4.jpg",
+    "query": "woman portrait beige background",
+    "width": 400,
+    "height": 400,
+    "pexelsId": 4383987
+  },
+  {
+    "file": "before.jpg",
+    "query": "woman casual standing full body neutral",
+    "width": 1000,
+    "height": 1250,
+    "pexelsId": 5012336
+  },
+  {
+    "file": "after.jpg",
+    "query": "fit woman sportswear standing full body",
+    "width": 1000,
+    "height": 1250,
+    "pexelsId": 5012086
+  },
+  {
+    "file": "cta-sunset.jpg",
+    "query": "sea mountains sunset calm",
+    "width": 2000,
+    "pexelsId": 28846601
+  }
+]
