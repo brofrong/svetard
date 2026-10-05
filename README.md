@@ -1,27 +1,27 @@
 # SVETARA — лендинг
 
-Лендинг нутрициолога и персонального тренера. Next.js 16, Tailwind v4, GSAP, Lenis, Three.js.
+Лендинг нутрициолога и персонального тренера. Next.js 16 на Bun, Tailwind v4, GSAP, Lenis, Three.js.
 
 ## Запуск
 
 ```bash
-pnpm install
-pnpm dev          # http://localhost:3000
+bun install
+bun run dev          # http://localhost:3000
 ```
 
 ## Как менять контент
 
 - Тексты, цены, контакты, ссылки на мессенджеры — `src/content/site.ts`.
   `*слово*` в заголовках выделяется курсивом золотом.
-- Фото — файлы в `public/images/` с теми же именами. Перекачать заглушки: поправить `scripts/images.json`, затем `pnpm images`.
+- Фото — файлы в `public/images/` с теми же именами. Перекачать заглушки: поправить `scripts/images.json`, затем `bun run images`.
 - Когда появятся свои фото, выключите тёплый фильтр: `media.warmFilter: false`.
 
 ## Проверки
 
 ```bash
-pnpm lint         # Biome
-pnpm test         # Vitest
-pnpm test:e2e     # Playwright: desktop, mobile, reduced motion
+bun run lint         # Biome
+bun run test         # Vitest
+bun run test:e2e     # Playwright: desktop, mobile, reduced motion
 ```
 
 ## Docker

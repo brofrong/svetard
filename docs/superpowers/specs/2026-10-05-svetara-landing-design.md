@@ -34,9 +34,9 @@
 | WebGL | React Three Fiber + собственный шейдер «шёлк» |
 | Линт и формат | Biome (ESLint/Prettier не используются) |
 | Тесты | Vitest (юнит-тесты чистых функций и инвариантов контента), Playwright (e2e: desktop / mobile / reduced-motion) |
-| Менеджер пакетов | pnpm 12 |
+| Менеджер пакетов и рантайм | Bun 1.4 (`bun install`, `bun --bun next …`, Vitest под `bun --bun`). Исключение: раннер Playwright Test работает только на Node, поэтому `bunx playwright test` запускает его через собственный shebang |
 | Иконки | lucide-react (тонкие линии, `strokeWidth` 1–1.25) |
-| Деплой | Docker-образ (Next.js `output: "standalone"`) → GitHub Container Registry через GitHub Actions |
+| Деплой | Docker-образ на `oven/bun` (Next.js `output: "standalone"`, сервер `bun server.js`) → GitHub Container Registry через GitHub Actions |
 
 ## 3. Архитектура
 
@@ -201,25 +201,25 @@ biome.json
 ### 10.1 Dockerfile
 
 - `next.config.ts`: `output: "standalone"`.
-- Многоэтапная сборка на `node:24-alpine` (Node 24 LTS):
-  1. `deps` — pnpm через corepack, `pnpm install --frozen-lockfile`.
-  2. `builder` — `pnpm build`.
-  3. `runner` — копируются `.next/standalone`, `.next/static`, `public`. Пользователь не root (`nextjs:nodejs`), `ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0`, `EXPOSE 3000`, `CMD ["node", "server.js"]`.
+- Многоэтапная сборка на `oven/bun:1.4.2-alpine`:
+  1. `deps` — `bun install --frozen-lockfile`.
+  2. `builder` — `bun run build`.
+  3. `runner` — копируются `.next/standalone`, `.next/static`, `public`. Пользователь не root (`bun` из базового образа), `ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0`, `EXPOSE 3000`, `CMD ["bun", "server.js"]`.
 - `HEALTHCHECK` через `wget -qO- http://127.0.0.1:3000/api/health`. Роут `app/api/health/route.ts` возвращает `200 {"status":"ok"}`.
 - `.dockerignore`: `node_modules`, `.next`, `.git`, `.github`, `tests`, `docs`, `playwright-report`, `test-results`.
 
 ### 10.2 GitHub Actions (`.github/workflows/docker.yml`)
 
 - Триггеры: `push` в `main`, `push` тегов `v*`, `pull_request` в `main` (только проверки и сборка, без публикации), `workflow_dispatch`.
-- Job `check`: pnpm + Node 24, `pnpm install --frozen-lockfile`, `pnpm exec biome ci`, `pnpm test` (Vitest), `pnpm build`.
+- Job `check`: `oven-sh/setup-bun` (версия из `packageManager`), `bun install --frozen-lockfile`, `bunx biome ci`, `bun run test` (Vitest), `bun run build`.
 - Job `docker` (`needs: check`): `permissions: { contents: read, packages: write }`; `docker/setup-buildx-action`; `docker/login-action` в `ghcr.io` через `GITHUB_TOKEN` (пропускается для `pull_request`); `docker/metadata-action`; `docker/build-push-action` с `cache-from/to: type=gha` и `platforms: linux/amd64`. `push: true` только для событий, отличных от `pull_request`.
 - Образ: `ghcr.io/${{ github.repository_owner }}/svetara` (имя в нижнем регистре).
 - Теги: `latest` и `sha-<short>` для `main`; `{{version}}` и `{{major}}.{{minor}}` для тегов `v*`; `pr-<n>` для PR (собирается, не публикуется).
 
 ## 11. Проверки
 
-- `pnpm biome ci` — без ошибок.
-- `pnpm build` — без ошибок и предупреждений типизации.
+- `bunx biome ci` — без ошибок.
+- `bun run build` — без ошибок и предупреждений типизации.
 - Playwright (`tests/smoke.spec.ts`, Chromium):
   - страница открывается, есть `<h1>`, все секции с якорями из раздела 5 присутствуют;
   - ссылки Telegram/WhatsApp ведут на `t.me` / `wa.me` с данными из `site.ts`;
