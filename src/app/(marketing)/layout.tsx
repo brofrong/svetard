@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Cursor } from "@/components/motion/Cursor";
+import { Grain } from "@/components/motion/Grain";
 import { Preloader } from "@/components/motion/Preloader";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Footer } from "@/components/sections/Footer";
@@ -12,6 +14,8 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      <Cursor />
+      <Grain />
     </>
   );
 }

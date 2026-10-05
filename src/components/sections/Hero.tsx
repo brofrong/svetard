@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { AccentText } from "@/components/ui/AccentText";
 import { ButtonLink, MessengerLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -83,14 +84,18 @@ export function Hero() {
             {hero.subtitle}
           </p>
           <div data-hero-fade className="mt-10 flex flex-wrap gap-4">
-            <ButtonLink href="#pricing">{hero.primaryCta}</ButtonLink>
-            <MessengerLink
-              channel="telegram"
-              text={hero.messengerText}
-              variant="outline"
-            >
-              {hero.secondaryCta}
-            </MessengerLink>
+            <Magnetic>
+              <ButtonLink href="#pricing">{hero.primaryCta}</ButtonLink>
+            </Magnetic>
+            <Magnetic>
+              <MessengerLink
+                channel="telegram"
+                text={hero.messengerText}
+                variant="outline"
+              >
+                {hero.secondaryCta}
+              </MessengerLink>
+            </Magnetic>
           </div>
           <p data-hero-fade className="eyebrow mt-16 text-mocha">
             {brand.tagline}

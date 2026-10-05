@@ -1,4 +1,5 @@
 import { Wordmark } from "@/components/brand/Logo";
+import { LogoDraw } from "@/components/motion/LogoDraw";
 import { Container } from "@/components/ui/Container";
 import { site } from "@/content/site";
 import { telegramLink, whatsappLink } from "@/lib/messenger";
@@ -29,7 +30,9 @@ export function Footer() {
     <footer className="border-t border-taupe/30 py-16">
       <Container className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <Wordmark className="h-6 w-auto text-espresso" />
+          <LogoDraw>
+            <Wordmark className="h-6 w-auto text-espresso" />
+          </LogoDraw>
           <p className="eyebrow mt-4 text-mocha">{brand.tagline}</p>
         </div>
         <ul className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-mocha">

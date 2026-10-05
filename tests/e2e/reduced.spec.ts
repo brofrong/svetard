@@ -17,3 +17,9 @@ test("при reduced motion всё видно сразу, без прелоад�
     expect(await effectiveOpacity(heading)).toBe(1);
   }
 });
+
+test("при reduced motion нет кастомного курсора", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.mouse.move(400, 300);
+  await expect(page.locator("[data-cursor-ring]")).toBeHidden();
+});

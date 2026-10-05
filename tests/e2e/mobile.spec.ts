@@ -14,3 +14,8 @@ for (const width of [320, 412]) {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 }
+
+test("на тач-устройстве нет кастомного курсора", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator("[data-cursor-ring]")).toBeHidden();
+});
