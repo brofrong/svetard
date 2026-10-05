@@ -23,3 +23,14 @@ test("при reduced motion нет кастомного курсора", async (
   await page.mouse.move(400, 300);
   await expect(page.locator("[data-cursor-ring]")).toBeHidden();
 });
+
+test("при reduced motion «Путь» — обычная сетка без закрепления", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator("#path")).not.toHaveAttribute(
+    "data-horizontal",
+    "",
+  );
+  await expect(page.locator(".pin-spacer")).toHaveCount(0);
+});
