@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ivory: #f7f3ec;
+  --color-sand: #e6dccf;
+  --color-caramel: #d4aa78;
+  --color-taupe: #8c7b6b;
+  --color-sage: #7f8566;
+  --color-dusk: #8fa3b5;
+  --color-espresso: #2a2420;
+  --color-mocha: #5e5248;
+  --color-gold-1: #b8893f;
+  --color-gold-2: #e8c98a;
+  --color-gold-3: #a67c3a;
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+    color: var(--color-espresso);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  ::selection {
+    background-color: var(--color-caramel);
+    color: var(--color-espresso);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-3);
+    outline-offset: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility eyebrow {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+@utility bg-gold {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-gold-1),
+    var(--color-gold-2) 50%,
+    var(--color-gold-3)
+  );
+}
+
+@utility warm-photo {
+  filter: sepia(0.15) saturate(0.92) contrast(0.96) brightness(1.02);
+}
+
+/* Прелоадер: скрыт при повторном визите, reduced motion и без JS; страховка — исчезает через 4 с */
+.preloader {
+  animation: preloader-failsafe 0.6s ease 4s forwards;
+}
+
+html[data-intro="skip"] .preloader {
+  display: none;
+}
+
+@media (scripting: none) {
+  .preloader {
+    display: none;
+  }
+}
+
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@property --gold-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gold-border {
+  padding: 1px;
+  background: conic-gradient(
+    from var(--gold-angle),
+    var(--color-gold-1),
+    var(--color-gold-2),
+    var(--color-gold-3),
+    var(--color-gold-2),
+    var(--color-gold-1)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: gold-spin 6s linear infinite;
+}
+
+@keyframes gold-spin {
+  to {
+    --gold-angle: 360deg;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-border {
+    animation: none;
+  }
 }
