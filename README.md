@@ -19,7 +19,9 @@ bun run dev          # http://localhost:3000
 ## Проверки
 
 ```bash
-bun run lint         # Biome
+bun lint             # линтер (bun lint)
+bun fmt              # формат; в CI bun fmt --check
+bun check            # типы
 bun run test         # Vitest
 bun run test:e2e     # Playwright: desktop, mobile, reduced motion
 ```

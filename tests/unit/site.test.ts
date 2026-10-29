@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+
 import { site } from "@/content/site";
+
 import { collectImages } from "./helpers";
 
 const unique = (values: string[]) => new Set(values).size === values.length;

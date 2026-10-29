@@ -1,0 +1,12 @@
+[fmt]
+sortImports = true
+ignorePatterns = ["docs/superpowers/"]
+
+[lint.categories]
+correctness = "error"
+
+[lint.rules]
+# <svg role="img" aria-label> is the right markup for an inline SVG.
+"jsx-a11y/prefer-tag-over-role" = "off"
+# Vitest takes a message as the second argument of expect().
+"vitest/valid-expect" = ["error", { maxArgs = 2 }]

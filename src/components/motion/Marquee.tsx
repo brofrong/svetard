@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { MOTION_OK } from "@/lib/motion";
 

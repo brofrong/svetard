@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
 import type { ImageRef } from "@/content/types";
 import { readSilkEnv, shouldRenderSilk } from "@/lib/device";
 
@@ -12,6 +13,8 @@ export function SilkHero({ image }: { image: ImageRef }) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    // Reads the browser after hydration, so the server render stays static.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(shouldRenderSilk(readSilkEnv()));
   }, []);
 

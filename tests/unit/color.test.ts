@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+
 import { hexToRgb } from "@/lib/color";
 
 it("hexToRgb переводит HEX в компоненты 0..1", () => {

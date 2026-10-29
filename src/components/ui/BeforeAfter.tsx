@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+
 import type { BeforeAfterContent } from "@/content/types";
 
 export function BeforeAfter({

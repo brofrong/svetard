@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { gotoHome } from "./helpers";
 
 test("золотое кольцо-курсор следует за мышью", async ({ page }) => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+
 import { LogoMark, Wordmark } from "@/components/brand/Logo";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { INTRO_STORAGE_KEY, markIntroDone } from "@/lib/intro";

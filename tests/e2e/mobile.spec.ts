@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { scrollThrough } from "./helpers";
 
 for (const width of [320, 412]) {

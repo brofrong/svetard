@@ -1,5 +1,6 @@
 import { MessageCircle, Send } from "lucide-react";
 import Image from "next/image";
+
 import { Magnetic } from "@/components/motion/Magnetic";
 import { SplitHeading } from "@/components/motion/SplitHeading";
 import { MessengerLink } from "@/components/ui/Button";

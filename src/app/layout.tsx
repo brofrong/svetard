@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+
 import { site } from "@/content/site";
 import { INTRO_STORAGE_KEY } from "@/lib/intro";
 // Шрифты лежат в проекте (Fontsource): сборка не зависит от ответа Google Fonts,

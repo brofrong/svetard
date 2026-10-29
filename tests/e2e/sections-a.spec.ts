@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
+
 import { site } from "@/content/site";
 import { telegramLink } from "@/lib/messenger";
+
 import { gotoHome } from "./helpers";
 
 test("цифры «Обо мне» доходят до значений из контента", async ({ page }) => {

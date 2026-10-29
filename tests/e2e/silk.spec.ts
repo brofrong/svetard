@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { gotoHome } from "./helpers";
 
 test("шёлк рендерится на десктопе без ошибок в консоли", async ({ page }) => {

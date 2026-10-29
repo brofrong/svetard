@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import { site } from "@/content/site";
 import type { ImageRef } from "@/content/types";
 import { cx } from "@/lib/cx";

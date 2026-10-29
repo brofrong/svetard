@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
+
 import type { Testimonial } from "@/content/types";
 
 type TestimonialSliderProps = {

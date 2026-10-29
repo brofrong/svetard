@@ -1,8 +1,9 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { AnimatePresence, MotionConfig, motion } from "motion/react";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { type ReactNode, useId, useState } from "react";
+
 import { cx } from "@/lib/cx";
 
 export type AccordionItem = {

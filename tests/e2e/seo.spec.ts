@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { site } from "@/content/site";
 
 test("мета-теги для соцсетей и поисковиков", async ({ page }) => {

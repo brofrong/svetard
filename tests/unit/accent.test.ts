@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { splitAccent } from "@/lib/accent";
 
 describe("splitAccent", () => {

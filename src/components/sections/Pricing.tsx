@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
+
 import { Reveal } from "@/components/motion/Reveal";
-import { MessengerLink, messengerHref } from "@/components/ui/Button";
+import { messengerHref, MessengerLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";

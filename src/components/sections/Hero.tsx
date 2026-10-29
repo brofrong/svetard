@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+
 import { Magnetic } from "@/components/motion/Magnetic";
 import { SilkHero } from "@/components/three/SilkHero";
 import { AccentText } from "@/components/ui/AccentText";

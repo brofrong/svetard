@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { type SilkEnv, shouldRenderSilk } from "@/lib/device";
+
+import { shouldRenderSilk, type SilkEnv } from "@/lib/device";
 
 const desktop: SilkEnv = {
   reducedMotion: false,

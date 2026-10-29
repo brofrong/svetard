@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+
 import { ArchImage } from "@/components/ui/ArchImage";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";

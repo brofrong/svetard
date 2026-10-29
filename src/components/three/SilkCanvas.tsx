@@ -3,7 +3,9 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { type ShaderMaterial, Vector2, Vector3 } from "three";
+
 import { hexToRgb } from "@/lib/color";
+
 import { silkFragment, silkVertex } from "./shader";
 
 const color = (hex: string) => new Vector3(...hexToRgb(hex));

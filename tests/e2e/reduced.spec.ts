@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { effectiveOpacity } from "./helpers";
 
 test("при reduced motion всё видно сразу, без прелоадера и Lenis", async ({

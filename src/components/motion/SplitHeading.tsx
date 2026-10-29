@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+
 import { AccentText } from "@/components/ui/AccentText";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 import { MOTION_OK } from "@/lib/motion";

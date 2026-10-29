@@ -36,12 +36,7 @@ export type Plan = {
   messengerText: string;
 };
 export type EcosystemIcon =
-  | "user"
-  | "leaf"
-  | "dumbbell"
-  | "users"
-  | "play"
-  | "sun";
+  "user" | "leaf" | "dumbbell" | "users" | "play" | "sun";
 export type EcosystemNode = { label: string; icon: EcosystemIcon };
 export type FaqItem = { id: string; question: string; answer: string };
 export type BeforeAfterContent = {

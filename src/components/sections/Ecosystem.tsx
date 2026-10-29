@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { useRef } from "react";
+
 import { Wordmark } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";

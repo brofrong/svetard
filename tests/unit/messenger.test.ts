@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { telegramLink, whatsappLink } from "@/lib/messenger";
 
 const decodedText = (href: string) => new URL(href).searchParams.get("text");
