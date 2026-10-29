@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BUN_IMAGE=oven/bun:1.4.2-alpine
+ARG BUN_IMAGE=oven/bun:1.4.4-alpine
 
 FROM ${BUN_IMAGE} AS deps
 WORKDIR /app
