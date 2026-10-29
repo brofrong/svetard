@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version-file: package.json
+          bun-version: canary # bun lint is only in canary for now
       - run: bun install --frozen-lockfile
       - run: bun lint
       - run: bun fmt --check
